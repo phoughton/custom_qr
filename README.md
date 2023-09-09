@@ -1,18 +1,7 @@
-# Python Project Template for your projects
+# Custom QR codes
 
-Use as a template for python repos, just basics to support python development and testing.
+Create a custom QR code that encodes some text, e.g. a URL and shows some text, e.g.: your name.
 
-
-## Run the tests
 ```bash
-python -m pytest
+python qr_gen.py -e "https://github.com/phoughton" -v "Pete Houghton" -o "myqr.png"
 ```
-## Debugger
-
-The `launch.json` file includes the necessary config to support using the vscode python debugger with pytest.
-
-
-# Docker Container
-
-Here is the [Dockerfile](https://github.com/phoughton/python_dev_container) for this template repo.
-(Its in a seperate Repo)

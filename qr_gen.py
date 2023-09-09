@@ -1,22 +1,29 @@
 import qrcode
 from PIL import ImageDraw, ImageFont
+import argparse
 
+parser = argparse.ArgumentParser(description='Generate a QR code with a logo')
+parser.add_argument('-e', '--encoded_text',
+                    help='Text to encode',
+                    required=True)
+parser.add_argument('-v', '--visible_text',
+                    help='Text to overlay',
+                    required=True)
+parser.add_argument('-o', '--output_file',
+                    help='Output PNG file',
+                    required=True)
+args = parser.parse_args()
 
 box_size = 100
-url = "https://github.com/phoughton"
-img = qrcode.make(url,
+img = qrcode.make(args.encoded_text,
                   box_size=box_size,
                   error_correction=qrcode.constants.ERROR_CORRECT_H,
                   border=1)
 
-file_path = "github_qr_code.png"
-# img.save(file_path)
-
 draw = ImageDraw.Draw(img)
-text = "Pete Houghton"
 
 font = ImageFont.truetype("DejaVuSans.ttf", box_size*3.5)
-left, top, right, bottom = font.getbbox(text)
+left, top, right, bottom = font.getbbox(args.visible_text)
 
 text_height = abs(bottom - top)
 text_width = abs(right - left)
@@ -28,6 +35,6 @@ draw.rectangle((x, y,
                 y + int(text_height*1.2)),
                 fill="white")
 
-draw.text((x, y), text, font=font)
+draw.text((x, y), args.visible_text, font=font)
 
-img.save(file_path)
+img.save(args.output_file)
